@@ -1,9 +1,10 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { AreaChart, Area, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
-import { TrendingUp, Users, Link as LinkIcon, Unlink } from 'lucide-react';
+import { TrendingUp, Users, Link as LinkIcon, Unlink, Instagram, Youtube, Twitter, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import ActivityGrid from './ActivityGrid';
 
 const CombinedDashboard = () => {
   const [linkedPlatforms, setLinkedPlatforms] = React.useState({
@@ -22,10 +23,42 @@ const CombinedDashboard = () => {
   ];
 
   const platformCards = [
-    { id: 'instagram', name: 'Instagram', path: '/instagram', followers: '28K', growth: '+12%', color: '#E1306C' },
-    { id: 'youtube', name: 'YouTube', path: '/youtube', followers: '40K', growth: '+15%', color: '#FF0000' },
-    { id: 'x', name: 'X', path: '/x', followers: '20K', growth: '+8%', color: '#000000' },
-    { id: 'linkedin', name: 'LinkedIn', path: '/linkedin', followers: '16K', growth: '+10%', color: '#0077B5' }
+    { 
+      id: 'instagram', 
+      name: 'Instagram', 
+      path: '/instagram', 
+      followers: '28K', 
+      growth: '+12%', 
+      color: '#E1306C',
+      icon: Instagram
+    },
+    { 
+      id: 'youtube', 
+      name: 'YouTube', 
+      path: '/youtube', 
+      followers: '40K', 
+      growth: '+15%', 
+      color: '#FF0000',
+      icon: Youtube
+    },
+    { 
+      id: 'x', 
+      name: 'X', 
+      path: '/x', 
+      followers: '20K', 
+      growth: '+8%', 
+      color: '#000000',
+      icon: Twitter
+    },
+    { 
+      id: 'linkedin', 
+      name: 'LinkedIn', 
+      path: '/linkedin', 
+      followers: '16K', 
+      growth: '+10%', 
+      color: '#0077B5',
+      icon: Linkedin
+    }
   ];
 
   const togglePlatform = (platform) => {
@@ -55,6 +88,10 @@ const CombinedDashboard = () => {
                 <Card className="bg-[#111111] border-none cursor-pointer hover:bg-[#1a1a1a] transition-colors">
                   <CardHeader className="flex flex-row items-center justify-between pb-2">
                     <CardTitle className="text-sm font-medium text-white flex items-center gap-2">
+                      {React.createElement(platform.icon, { 
+                        size: 20, 
+                        style: { color: platform.color }
+                      })}
                       {platform.name}
                       {linkedPlatforms[platform.id] ? (
                         <LinkIcon
@@ -86,6 +123,11 @@ const CombinedDashboard = () => {
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        {/* Activity Grid */}
+        <div className="mb-6">
+          <ActivityGrid />
         </div>
 
         {/* Growth Chart */}
@@ -166,6 +208,8 @@ const CombinedDashboard = () => {
             </div>
           </CardContent>
         </Card>
+        
+        {/* Engagement Stats */}
       </div>
     </div>
   );
